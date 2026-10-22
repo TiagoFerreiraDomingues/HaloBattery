@@ -38,6 +38,13 @@ and the project follows [Semantic Versioning](https://semver.org/).
   features and settings is in `docs/features.md` and the credits in `docs/credits.md`.
 
 ### Fixed
+- Localization review: zero and negative estimates say "no use left" in every
+  language, matching #223's intended behavior; positive estimates are unchanged.
+- The localized rename dialog focuses and selects the current name using a normal
+  PowerShell TextBox variable instead of the automatic variable $input.
+- After a damaged config is preserved as config.json.bad, normal startup detects
+  and persists the initial language. Ordinary reads and --probe do not initialize
+  it; a failed backup leaves the damaged file untouched.
 - **Start-up with portable mode no longer hangs in a folder it cannot write to**: the
   check whether the app folder is writable used `tempfile`, which on Windows retries
   forever when the folder's permissions deny creating files (Program Files). It is now one

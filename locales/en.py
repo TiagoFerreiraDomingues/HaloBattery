@@ -96,6 +96,7 @@ MESSAGES = {
     "level.medium": "medium",
     "level.good": "good",
     "level.full": "full",
+    "duration.none": "no use left",
     "duration.less_hour": "less than 1 h of use left",
     "duration.hours": {"one": "about {count} h of use left", "other": "about {count} h of use left"},
     "duration.days": {"one": "about {count} day of use left", "other": "about {count} days of use left"},

@@ -96,6 +96,7 @@ MESSAGES = {
     "level.medium": "moyenne",
     "level.good": "bonne",
     "level.full": "pleine",
+    "duration.none": "aucune autonomie restante",
     "duration.less_hour": "moins d’une heure d’utilisation restante",
     "duration.hours": {"one": "environ {count} heure d’utilisation restante",
                        "other": "environ {count} heures d’utilisation restantes"},

@@ -127,6 +127,8 @@ compilation step.
   boundaries. Test fallback, configuration
   persistence and notification behavior with `python -m unittest discover -s tests`.
   Review long labels, accents and device names in both classic and Fluent menus.
+  On Windows, set HALO_TEST_WINDOWS_DIALOG=1 to include the real Windows Forms
+  focus/selection regression tests; their invisible dialogs close automatically.
   A right-to-left language also requires a separate review of text direction and
   UI layout; registering its catalog alone does not enable right-to-left layout.
 
@@ -138,4 +140,7 @@ languages or a failed detection select `en`. Preferences > Language / Langue
 overrides that initial selection immediately and persists `language` in
 `%APPDATA%\HaloBattery\config.json` (or the app's folder in portable mode).
 A stored invalid value falls back to English without triggering detection again.
+After a damaged config is preserved as config.json.bad, normal startup initializes
+and saves the language; ordinary reads do not. If the backup fails, the damaged
+file is left untouched and English defaults are used for that session.
 `--probe` never initializes the language.

@@ -97,6 +97,7 @@ MESSAGES = {
     "level.medium": "中程度",
     "level.good": "十分",
     "level.full": "満充電",
+    "duration.none": "残り使用時間はありません",
     "duration.less_hour": "残り使用時間は 1 時間未満",
     "duration.hours": {
         "other": "あと約 {count} 時間使用できます"

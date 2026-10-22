@@ -125,6 +125,8 @@ def tooltip(text: str) -> str:
 
 def format_left(seconds: float, *, language: str = "en") -> str:
     """Format an estimate; the history calculation itself is language-independent."""
+    if seconds <= 0:
+        return translate("duration.none", language=language)
     hours = seconds / 3600.0
     if hours < 1:
         return translate("duration.less_hour", language=language)

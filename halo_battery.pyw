@@ -282,8 +282,8 @@ def load_config(*, initialize_language: bool = False) -> dict:
         try:
             os.replace(CONFIG_PATH, CONFIG_PATH + ".bad")
         except OSError:
-            pass
-        return cfg
+            return cfg                           # never overwrite an unpreserved damaged file
+        data = {}                                # startup initializes language after recovery
     for key, value in data.items():
         if key in DEFAULTS and not _valid_setting(key, value):
             log.warning("config: ignoring %s=%r, using %r", key, value, DEFAULTS[key])
@@ -920,8 +920,8 @@ $layout = New-Object System.Windows.Forms.TableLayoutPanel
 $layout.AutoSize = $true; $layout.Dock = 'Fill'; $layout.Padding = 12
 $label = New-Object System.Windows.Forms.Label
 $label.Text = $env:HALO_BATTERY_PROMPT; $label.AutoSize = $true
-$input = New-Object System.Windows.Forms.TextBox
-$input.Text = $env:HALO_BATTERY_NAME; $input.MaxLength = 60; $input.Width = 340
+$tb = New-Object System.Windows.Forms.TextBox
+$tb.Text = $env:HALO_BATTERY_NAME; $tb.MaxLength = 60; $tb.Width = 340
 $buttons = New-Object System.Windows.Forms.FlowLayoutPanel
 $buttons.AutoSize = $true; $buttons.FlowDirection = 'RightToLeft'
 $ok = New-Object System.Windows.Forms.Button
@@ -929,11 +929,11 @@ $ok.Text = $env:HALO_BATTERY_OK; $ok.AutoSize = $true; $ok.DialogResult = 'OK'
 $cancel = New-Object System.Windows.Forms.Button
 $cancel.Text = $env:HALO_BATTERY_CANCEL; $cancel.AutoSize = $true; $cancel.DialogResult = 'Cancel'
 $buttons.Controls.Add($cancel); $buttons.Controls.Add($ok)
-$layout.Controls.Add($label, 0, 0); $layout.Controls.Add($input, 0, 1)
+$layout.Controls.Add($label, 0, 0); $layout.Controls.Add($tb, 0, 1)
 $layout.Controls.Add($buttons, 0, 2); $form.Controls.Add($layout)
 $form.AcceptButton = $ok; $form.CancelButton = $cancel
-$form.Add_Shown({ $input.Focus(); $input.SelectAll() })
-if ($form.ShowDialog() -eq 'OK') { [Console]::WriteLine($input.Text) }
+$form.Add_Shown({ $tb.Focus(); $tb.SelectAll() })
+if ($form.ShowDialog() -eq 'OK') { [Console]::WriteLine($tb.Text) }
 $form.Dispose()
 """
     try:

@@ -117,8 +117,30 @@ class CatalogTests(unittest.TestCase):
         self.assertEqual(i18n.format_left(3600, language="fr"), "environ 1 heure d’utilisation restante")
         self.assertEqual(i18n.format_left(7200, language="fr"), "environ 2 heures d’utilisation restantes")
         self.assertEqual(i18n.format_left(48 * 3600, language="fr"), "environ 2 jours d’utilisation restants")
-        for hours in (0, 0.5, 1, 1.5, 5.4, 47.9, 48, 72, 200):
+        for hours in (0.5, 1, 1.5, 5.4, 47.9, 48, 72, 200):
             self.assertEqual(i18n.format_left(hours * 3600), hb.history.format_left(hours * 3600))
+
+    def test_nonpositive_estimates_and_positive_boundary(self):
+        expected = {"en": "no use left", "fr": "aucune autonomie restante",
+                    "zh-TW": "無剩餘使用時間", "zh-CN": "无剩余使用时间",
+                    "ja": "残り使用時間はありません"}
+        for language, text in expected.items():
+            for seconds in (-3600, -1, -0.01, 0):
+                with self.subTest(language=language, seconds=seconds):
+                    self.assertEqual(i18n.format_left(seconds, language=language), text)
+            self.assertEqual(i18n.format_left(0.01, language=language),
+                             i18n.translate("duration.less_hour", language=language))
+        with mock.patch.dict(fr.MESSAGES, {}, clear=True):
+            self.assertEqual(i18n.format_left(0, language="fr"), "no use left")
+        self.assertEqual(i18n.format_left(-1, language="not-registered"), "no use left")
+
+    def test_empty_estimate_reaches_tooltip_and_english_status(self):
+        app = make_app({"language": "fr"})
+        app.history.seconds_left = lambda key, level: 0.0
+        st = dev(level=0)
+        self.assertEqual(app.time_left_text(st), "aucune autonomie restante")
+        self.assertEqual(app.status_data([st])["devices"][0]["text"],
+                         "G502 LIGHTSPEED: 0%, no use left")
 
     def test_unicode_tooltip_buffer(self):
         self.assertEqual(i18n.tooltip("Écouteurs 🎧"), "Écouteurs 🎧")
@@ -218,13 +240,44 @@ class LanguageConfigTests(unittest.TestCase):
                 self.assertEqual(cfg["language"], value if valid else "en")
                 self.assertEqual(cfg["interval"], 30)
 
-    def test_damaged_config_keeps_existing_recovery_and_english_default(self):
+    def test_damaged_config_initializes_language_after_preserving_original(self):
+        for damaged in ("{broken", "[]", "null", '"text"', "42"):
+            with self.subTest(damaged=damaged):
+                with open(self.path, "w", encoding="utf-8") as stream:
+                    stream.write(damaged)
+                with mock.patch.object(i18n, "detect_language", return_value="fr") as detect:
+                    cfg = hb.load_config(initialize_language=True)
+                detect.assert_called_once_with()
+                self.assertEqual(cfg, dict(hb.DEFAULTS, language="fr"))
+                with open(self.path + ".bad", encoding="utf-8") as stream:
+                    self.assertEqual(stream.read(), damaged)
+                with open(self.path, encoding="utf-8") as stream:
+                    self.assertEqual(json.load(stream)["language"], "fr")
+                with mock.patch.object(i18n, "detect_language") as detect:
+                    self.assertEqual(hb.load_config(initialize_language=True), cfg)
+                detect.assert_not_called()
+
+    def test_ordinary_damaged_config_recovery_never_initializes_language(self):
         with open(self.path, "w") as stream:
             stream.write("{broken")
-        with mock.patch.object(i18n, "detect_language") as detect:
+        with mock.patch.object(i18n, "detect_language") as detect, mock.patch.object(hb, "save_config") as save:
+            self.assertEqual(hb.load_config(), hb.DEFAULTS)
+        detect.assert_not_called()
+        save.assert_not_called()
+        self.assertFalse(os.path.exists(self.path))
+        self.assertTrue(os.path.exists(self.path + ".bad"))
+
+    def test_failed_damaged_backup_is_not_overwritten(self):
+        with open(self.path, "w") as stream:
+            stream.write("{broken")
+        with mock.patch.object(hb.os, "replace", side_effect=OSError("backup refused")), \
+                mock.patch.object(i18n, "detect_language") as detect, \
+                mock.patch.object(hb, "save_config") as save:
             self.assertEqual(hb.load_config(initialize_language=True), hb.DEFAULTS)
         detect.assert_not_called()
-        self.assertTrue(os.path.exists(self.path + ".bad"))
+        save.assert_not_called()
+        with open(self.path) as stream:
+            self.assertEqual(stream.read(), "{broken")
 
     def test_manual_selection_persists_and_overrides_next_windows_detection(self):
         app = make_app()

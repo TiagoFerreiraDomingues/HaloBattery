@@ -97,6 +97,7 @@ MESSAGES = {
     "level.medium": "中等",
     "level.good": "充足",
     "level.full": "滿電",
+    "duration.none": "無剩餘使用時間",
     "duration.less_hour": "剩餘使用時間不到 1 小時",
     "duration.hours": {
         "other": "約可再使用 {count} 小時"
