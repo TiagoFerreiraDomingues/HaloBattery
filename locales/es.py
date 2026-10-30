@@ -3,8 +3,8 @@
 Source: https://github.com/HeyOkay/HaloBattery/pull/249
 lang.py at 7c2994d46fe7ed831f3c6846618e5901e0938ab4.
 Keys, placeholders and compound messages follow the shared catalog format.
-Provider labels, detailed states and newer UI messages extend that contribution;
-the adaptation and additions are pending AdrianH23's Spanish review.
+Provider labels, detailed states and newer UI messages extend that contribution.
+AdrianH23 reviewed the port: https://github.com/TiagoFerreiraDomingues/HaloBattery/pull/2#issuecomment-6500565157
 """
 
 MESSAGES = {
@@ -34,7 +34,7 @@ MESSAGES = {
     "preferences.low": "Aviso de batería baja",
     "preferences.full": "Aviso al cargar por completo",
     "preferences.time_left": "Tiempo restante estimado",
-    "preferences.quiet": "Silencio durante el juego",
+    "preferences.quiet": "Silenciar mientras juegas",
     "preferences.low_sound": "Sonido con el aviso de batería baja",
     "preferences.bluetooth": "Dispositivos Bluetooth de Windows",
     "preferences.playstation": "Modo completo de PlayStation (Bluetooth)",
@@ -124,7 +124,7 @@ MESSAGES = {
     "notification.temp_autostart": "Halo Battery se está ejecutando desde una carpeta temporal (directamente desde el ZIP). Extrae el ZIP a una carpeta propia, ejecuta HaloBattery.exe desde allí y activa «Iniciar con Windows».",
     "rename.prompt": "Nuevo nombre para este dispositivo:",
     "rename.title": "Halo Battery - Cambiar nombre",
-    # Windows Forms buttons and newer UI messages added for review.
+    # Windows Forms buttons and newer UI messages added in the port.
     "rename.ok": "Aceptar",
     "rename.cancel": "Cancelar",
     "preferences.keep_disconnected": "Mantener los dispositivos desconectados hasta el reinicio",

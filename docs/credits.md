@@ -22,5 +22,6 @@ The BlackShark V2 Pro 2020 battery request is documented in [OpenRazer issue #12
   catalogs introduced in #188. Source: `lang.py` at commit
   `7c2994d46fe7ed831f3c6846618e5901e0938ab4` in AdrianH23/HaloBattery.
   The port also adds provider-family labels, detailed device states, Windows Forms
-  buttons and the newer update/What's new messages; these additions and adaptations
-  are awaiting AdrianH23's Spanish review.
+  buttons and the newer update/What's new messages. AdrianH23
+  [reviewed the port](https://github.com/TiagoFerreiraDomingues/HaloBattery/pull/2#issuecomment-6500565157)
+  and supplied the revised quiet-mode wording.

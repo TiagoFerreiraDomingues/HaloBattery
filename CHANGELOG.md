@@ -8,8 +8,8 @@ and the project follows [Semantic Versioning](https://semver.org/).
 
 ### Added
 - Spanish UI catalog, adapted from AdrianH23's translations in #249, with the
-  newer messages completed for review. Español uses the existing language registry,
-  immediate selection, persistence and initial Windows UI language detection for
+  newer messages completed and reviewed by AdrianH23. Español uses the existing
+  language registry, immediate selection, persistence and initial Windows UI language detection for
   all Spanish regional variants. English remains the fallback and technical output
   stays in English.
 - Traditional Chinese, Simplified Chinese and Japanese UI catalogs using the localization registry
