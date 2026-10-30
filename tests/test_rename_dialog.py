@@ -11,6 +11,7 @@ import types
 import unittest
 from unittest import mock
 
+import i18n
 from test_hide_rename import hb
 
 
@@ -57,7 +58,7 @@ if ($script:failed -or $Error.Count) { exit 1 }
         return real_run(args, **kwargs)
 
     def test_real_shown_callback_focuses_and_selects_name_in_each_language(self):
-        for code in ("en", "fr", "zh-TW", "zh-CN", "ja"):
+        for code in i18n.LANGUAGES:
             with self.subTest(language=code):
                 result = self.run_dialog(code)
                 self.assertEqual(result.returncode, 0, result.stderr.decode("utf-8", "replace"))

@@ -14,3 +14,14 @@ Halo Battery reads each device the way its maker's software does. These projects
 - The reference implementations behind individual devices - HeadsetControl, rivalcfg, Solaar, G-Helper, HyperHeadset, mouse.xyz, [`@openmouse/protocol`](https://github.com/OpenMouse-Project/openmouse), keychron-battery-dkms, JBL_Baterry_Monitor and others - are credited next to the device they were used for in [docs/protocols.md](protocols.md).
 
 The BlackShark V2 Pro 2020 battery request is documented in [OpenRazer issue #1280](https://github.com/openrazer/openrazer/issues/1280) and [Modzeleczek/RazerNariBatteryLevel](https://github.com/Modzeleczek/RazerNariBatteryLevel).
+
+## Translations
+
+- Spanish: [AdrianH23](https://github.com/AdrianH23), whose translations in
+  [#249](https://github.com/HeyOkay/HaloBattery/pull/249) are adapted to the shared
+  catalogs introduced in #188. Source: `lang.py` at commit
+  `7c2994d46fe7ed831f3c6846618e5901e0938ab4` in AdrianH23/HaloBattery.
+  The port also adds provider-family labels, detailed device states, Windows Forms
+  buttons and the newer update/What's new messages. AdrianH23
+  [reviewed the port](https://github.com/TiagoFerreiraDomingues/HaloBattery/pull/2#issuecomment-6500565157)
+  and supplied the revised quiet-mode wording.

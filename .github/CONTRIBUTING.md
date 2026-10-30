@@ -87,8 +87,8 @@ Look at the open issues and pull requests first, so that two people do not do th
 ## 4. Add or update a translation
 
 Application messages live in `locales/en.py` (the reference and fallback) and
-`locales/fr.py`, `locales/zh_TW.py`, `locales/zh_CN.py` and `locales/ja.py`. They are Python
-modules, bundled by PyInstaller without additional dependencies or a translation
+`locales/fr.py`, `locales/es.py`, `locales/zh_TW.py`, `locales/zh_CN.py` and
+`locales/ja.py`. They are Python modules, bundled by PyInstaller without additional dependencies or a translation
 compilation step.
 
 - Copy the English catalog into `locales/<code>.py` and translate the complete
@@ -133,7 +133,8 @@ compilation step.
   UI layout; registering its catalog alone does not enable right-to-left layout.
 
 The app detects the Windows **UI language**, not the regional format or keyboard,
-only when no language is saved. French regional variants select `fr`, Japanese
+only when no language is saved. French regional variants select `fr`, Spanish
+regional variants select `es` (one shared catalog), Japanese
 selects `ja`, Traditional Chinese LANGIDs select `zh-TW`, and Simplified Chinese
 LANGIDs select `zh-CN`. Unsupported
 languages or a failed detection select `en`. Preferences > Language / Langue

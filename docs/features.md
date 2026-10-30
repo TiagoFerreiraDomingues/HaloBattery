@@ -23,7 +23,7 @@ Right-click a device icon to open its menu. It looks like a Windows 11 menu (acr
 - **Hide this device**: remove its icon, for example for a controller that always reports 100%.
 - **Refresh now**
 - **Preferences**:
-  - **Language / Langue**: English, Français, 繁體中文, 简体中文 or 日本語. On first startup without
+  - **Language / Langue**: English, Français, Español, 繁體中文, 简体中文 or 日本語. On first startup without
     a saved language, the Windows UI language selects a supported translation, otherwise English.
     The selection is saved with the other settings (next to the app in portable mode).
     A manual choice updates menus and tooltips immediately and always takes precedence over Windows.
